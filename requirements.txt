@@ -1,4 +1,4 @@
 requests
 markdownify
 python-dotenv
-openai
+google-genai

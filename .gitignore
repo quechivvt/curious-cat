@@ -1,3 +1,4 @@
+data/markdown/
 .venv/
 .env
 __pycache__/
