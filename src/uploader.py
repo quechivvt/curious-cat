@@ -30,6 +30,7 @@ def upload_markdown_files() -> str:
     store_name = _create_file_search_store()
 
     operations = []
+    print(f"Uploading Markdown files...")
     for markdown_file in MARKDOWN_OUTPUT_DIR.glob("*.md"):
         operation = _upload_file(
             store_name,
@@ -69,7 +70,6 @@ def _upload_file(file_search_store_name: str,markdown_file: Path) -> Any:
             "display_name": markdown_file.stem,
         }
     )
-    print(f"Uploading {markdown_file.name} to {file_search_store_name}")
     return operation
 
 
