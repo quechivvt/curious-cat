@@ -9,13 +9,14 @@ from src.assistant import ask
 from src.metadata import load_metadata,save_metadata
 from src.config import MARKDOWN_OUTPUT_DIR
 from datetime import datetime
-
+from zoneinfo import ZoneInfo
 
 def main() -> None:
     """Run the article scraper."""
     print("=" * 50)
     print("OptiBot Daily Sync")
-    print(f"Run at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    now = datetime.now(ZoneInfo("Asia/Ho_Chi_Minh"))
+    print(f"Run at: {now.strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 50)
     print()
     added = 0

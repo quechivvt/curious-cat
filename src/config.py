@@ -14,7 +14,7 @@ ARTICLES_API_URL = "https://support.optisigns.com/api/v2/help_center/en-us/artic
 MARKDOWN_OUTPUT_DIR = Path("data/markdown")
 METADATA_FILE = Path("data/metadata.json")
 
-DEFAULT_PAGE_SIZE = 30
+DEFAULT_PAGE_SIZE = 31
 REQUEST_TIMEOUT = 30
 POLL_INTERVAL = 5
 
