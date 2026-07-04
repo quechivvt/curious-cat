@@ -17,7 +17,6 @@ from src.config import (
     EMBEDDING_MODEL,
     FILE_SEARCH_STORE_NAME,
     POLL_INTERVAL,
-    MARKDOWN_OUTPUT_DIR,
 )
 
 
@@ -25,13 +24,16 @@ client = genai.Client(
     api_key=GEMINI_API_KEY,
 )
 
-def upload_markdown_files() -> str:
+def upload_markdown_files(markdown_files: list[Path]) -> str:
     """Upload all Markdown files to a File Search Store."""
-    store_name = _create_file_search_store()
+    store_name = _get_or_create_store()
+    if not markdown_files:
+        print("No new or updated Markdown files.")
+        return store_name
 
     operations = []
-    print(f"Uploading Markdown files...")
-    for markdown_file in MARKDOWN_OUTPUT_DIR.glob("*.md"):
+    print("Uploading Markdown files...")
+    for markdown_file in markdown_files:
         operation = _upload_file(
             store_name,
             markdown_file,
@@ -49,6 +51,12 @@ def upload_markdown_files() -> str:
     print("File Search Store indexing completed.")
     return store_name
 
+def _get_existing_store() -> str | None:
+    """Return an existing File Search Store name if one already exists."""
+    for store in client.file_search_stores.list():
+        if store.display_name == FILE_SEARCH_STORE_NAME:
+            return store.name
+    return None
 
 def _create_file_search_store() -> str:
     """Create a Gemini File Search Store."""
@@ -59,10 +67,20 @@ def _create_file_search_store() -> str:
     })
     return file_search_store.name
 
+def _get_or_create_store() -> str:
+    """Return the File Search Store name and whether it was newly created."""
+    store_name = _get_existing_store()
+    if store_name:
+        print(f"Using existing File Search Store: {store_name}")
+        return store_name
+
+    print("Creating new File Search Store...")
+    return _create_file_search_store()
+
 
 def _upload_file(file_search_store_name: str,markdown_file: Path) -> Any:
     """Upload a Markdown file to the File Search Store."""
-
+    print(f"Uploading {markdown_file} to File Search Store...")
     operation = client.file_search_stores.upload_to_file_search_store(
         file=markdown_file,
         file_search_store_name=file_search_store_name,

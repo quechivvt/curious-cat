@@ -12,18 +12,19 @@ load_dotenv()
 
 ARTICLES_API_URL = "https://support.optisigns.com/api/v2/help_center/en-us/articles.json"
 MARKDOWN_OUTPUT_DIR = Path("data/markdown")
+METADATA_FILE = Path("data/metadata.json")
 
-DEFAULT_PAGE_SIZE = 5
+DEFAULT_PAGE_SIZE = 30
 REQUEST_TIMEOUT = 30
 POLL_INTERVAL = 5
 
 
 # 0 = crawl all available pages
-MAX_PAGES = int(os.getenv("MAX_PAGES", "0"))
+MAX_PAGES = int(os.getenv("MAX_PAGES", "2"))
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.5-flash")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "models/gemini-embedding-2")
-FILE_SEARCH_STORE_NAME = os.getenv("FILE_SEARCH_STORE_NAME", "OptiSigns Knowledge Base")
+FILE_SEARCH_STORE_NAME = os.getenv("FILE_SEARCH_STORE_NAME", "OptiSigns Knowledge Base Final")
 
 if not GEMINI_API_KEY:
     raise ValueError("GEMINI_API_KEY is not set.")
