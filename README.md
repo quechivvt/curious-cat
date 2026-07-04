@@ -1,5 +1,5 @@
-# Curious Cat – OptiSigns Knowledge Base Assistant
-A mini RAG system that scrapes the OptiSigns Help Center, detects article changes, indexes Markdown documents into Gemini File Search Store, and answers user questions using Retrieval-Augmented Generation (RAG).
+# Curious Cat 
+A mini Retrieval-Augmented Generation (RAG) assistant that automatically scrapes a help center, detects content updates, indexes Markdown documents into Gemini File Search Store, and answers user questions.
 
 ## Setup
 
